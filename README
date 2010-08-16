@@ -1,0 +1,63 @@
+i18n_tools
+==========
+
+Very simple rake tasks for finding missing and unused translations in Rails applications using the
+I18n library.
+
+
+Installation
+============
+
+  (sudo) gem install i18n_tools
+
+
+Usage
+=====
+
+Include the following snippet into your Rakefile:
+
+  begin
+    require 'i18n_tools/tasks'
+  rescue LoadError
+  end
+
+Now you can run the following tasks:
+
+* LOCALE=xyz rake translations:missing -- detects missing translations from your project in locale xyz
+  and outputs them to stdout in YAML format.
+* LOCALE=xyz rake translations:unused -- detects translations in locale xyz that are not used by any of
+  your code and outputs the translation keys.
+
+
+Tweaking it
+===========
+
+By default, i18n_tools looks for controllers, helpers, models and views in the usual directories. If you
+use non-standard file types (such as "app/mailers" or something like that), add the following to your
+Rakefile:
+
+  I18nTools::Scanner.file_types << "mailers"
+
+Some files might contain parts that look like calls to the translation library, but actually aren't. To
+exclude these files from the output, write them into the file .i18nignore in your RAILS_ROOT, as regular
+expressions, one per line. Empty lines or lines starting with # are ignored.
+
+There is something special about the "translations:unused" task. In its default configuration it might
+report things that are actually used. To exclude these false positives, enter each key prefix to ignore
+into the file .i18nignore_unused (omit the locale). For example, a good start is to use the following
+key prefixes for your .i18nignore_unused:
+
+  activerecord
+  # if you use authlogic
+  authlogic
+  date.formats
+  datetime
+  number
+  support.array
+  time
+
+
+Contributing
+============
+
+As usual, fork, commit, pull request.
