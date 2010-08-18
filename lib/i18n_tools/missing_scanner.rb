@@ -23,6 +23,8 @@ module I18nTools
 
         current_hash[parts.last] = ""
       end
+      
+      result
     end
   end
 end
