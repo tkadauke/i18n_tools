@@ -6,6 +6,7 @@ namespace :translations do
       require 'i18n'
       $KCODE = "UTF8"
       
+      I18n.load_path << Dir[File.join('locales', '*.yml')]
       I18n.load_path << Dir[File.join('config', 'locales', '*.yml')]
     end
     
