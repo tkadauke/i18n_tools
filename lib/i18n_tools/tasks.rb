@@ -1,5 +1,14 @@
 namespace :translations do
-  task :setup => :environment do
+  task :setup do
+    if Rake::Task.task_defined?("environment")
+      Rake::Task["environment"].invoke
+    else
+      require 'i18n'
+      $KCODE = "UTF8"
+      
+      I18n.load_path << Dir[File.join('config', 'locales', '*.yml')]
+    end
+    
     require 'i18n_tools'
     
     @locale = (ENV['LOCALE'] || 'en').to_sym
