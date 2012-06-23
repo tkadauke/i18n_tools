@@ -17,3 +17,4 @@ end
 require File.dirname(__FILE__) + '/i18n_tools/scanner'
 require File.dirname(__FILE__) + '/i18n_tools/missing_scanner'
 require File.dirname(__FILE__) + '/i18n_tools/unused_scanner'
+require File.dirname(__FILE__) + '/i18n_tools/railtie' if defined?(Rails)
