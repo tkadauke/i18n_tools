@@ -1,7 +1,7 @@
 module I18nTools
   class Scanner
-    VIEW_REGEXPS = [/[^\w]t\(\"(.*?)\".*?\)/, /[^\w]t\(\'(.*?)\'.*?\)/]
-    CODE_REGEXPS = [/I18n\.t\(\"(.*?)\".*?\)/, /I18n\.t\(\'(.*?)\'.*?\)/]
+    VIEW_REGEXPS = [/[^\w]t\ *\(\"(.*?)\".*?\)/, /[^\w]t\ *\(\'(.*?)\'.*?\)/, /[^\w]t\ *\(\:([^\,\ ]+).*\)/, /[^\w]t\ \"(.*)\"/, /[^\w]t\ \'(.*)\'/, /[^\w]t\ +\:([^\,\ ]+)/]
+    CODE_REGEXPS = VIEW_REGEXPS
     
     cattr_accessor :file_types
     self.file_types = ['controllers', 'helpers', 'models']
