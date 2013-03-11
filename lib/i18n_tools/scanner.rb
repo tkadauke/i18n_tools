@@ -1,7 +1,7 @@
 module I18nTools
   class Scanner
-    VIEW_REGEXPS = [/[^\w]t\(\"(.*?)\".*?\)/, /[^\w]t\(\'(.*?)\'.*?\)/]
-    CODE_REGEXPS = [/I18n\.t\(\"(.*?)\".*?\)/, /I18n\.t\(\'(.*?)\'.*?\)/]
+    VIEW_REGEXPS = [/[^\w]t\(\"(.*?)\"(.*?)\)/, /[^\w]t\(\'(.*?)\'(.*?)\)/]
+    CODE_REGEXPS = [/I18n\.t\(\"(.*?)\"(.*?)\)/, /I18n\.t\(\'(.*?)\'(.*?)\)/]
     
     cattr_accessor :file_types
     self.file_types = ['controllers', 'helpers', 'models']
@@ -20,13 +20,13 @@ module I18nTools
         content = File.read(filename)
         VIEW_REGEXPS.each do |view_regexp|
           content.scan(view_regexp) do |match|
-            key = match.first
+            key, params = match.first, match.last
             next if key =~ /\#\{/
             if key =~ /^\./
               namespace = filename.gsub('app/views/', '').gsub('.html.erb', '').gsub('/', '.')
               key = (namespace + key).split('.').collect { |part| part.gsub(/^\_/, '') }.join('.')
             end
-            yield key
+            yield key, params
           end
         end
       end

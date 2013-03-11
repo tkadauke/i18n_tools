@@ -7,7 +7,7 @@ module I18nTools
     def results
       used_ones = []
 
-      scan do |key|
+      scan do |key, params|
         used_ones << [@locale, key].join('.')
       end
 
