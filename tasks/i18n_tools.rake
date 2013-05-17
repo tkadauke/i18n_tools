@@ -1,5 +1,10 @@
 namespace :translations do
-  task :setup do
+  task :clear do
+    require 'i18n'
+    I18n.load_path.clear
+  end
+  
+  task :load do
     if Rake::Task.task_defined?("environment")
       Rake::Task["environment"].invoke
     else
@@ -15,7 +20,7 @@ namespace :translations do
   end
   
   desc 'Detect missing translations'
-  task :missing => :setup do
+  task :missing => :load do
     require 'ya2yaml'
     
     results = I18nTools::MissingScanner.new(@locale).results
@@ -23,7 +28,7 @@ namespace :translations do
   end
   
   desc 'Detect translations that are not used in code'
-  task :unused => :setup do
+  task :unused => [:clear, :load] do
     unused = I18nTools::UnusedScanner.new(@locale).results
     puts unused
   end

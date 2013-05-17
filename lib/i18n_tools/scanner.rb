@@ -10,6 +10,22 @@ module I18nTools
       @@file_types = val
     end
     self.file_types = ['controllers', 'helpers', 'models']
+    
+    def self.code_paths
+      @@code_paths
+    end
+    def self.code_paths=(val)
+      @@code_paths = val
+    end
+    self.code_paths = ["app/**/*.rb", "lib/**/*.rb"]
+    
+    def self.view_paths
+      @@view_paths
+    end
+    def self.view_paths=(val)
+      @@view_paths = val
+    end
+    self.view_paths = ['app/views/**/*.erb', 'app/views/**/*.rhtml']
 
   protected
     def scan(&block)
@@ -18,8 +34,15 @@ module I18nTools
     end
     
   private
+    def code_paths
+      [
+        self.class.file_types.collect { |t| "app/#{t}/**/*.rb" },
+        self.class.code_paths
+      ].flatten
+    end
+  
     def scan_views(&block)
-      Dir['app/views/**/*.erb', 'app/views/**/*.rhtml'].each do |filename|
+      Dir[*self.class.view_paths].uniq.each do |filename|
         next if ignores.any? { |r| filename =~ r }
 
         content = File.read(filename)
@@ -38,7 +61,7 @@ module I18nTools
     end
     
     def scan_code(&block)
-      Dir["lib/**/*.rb", *self.class.file_types.collect { |t| "app/#{t}/**/*.rb" }].each do |filename|
+      Dir[*code_paths].uniq.each do |filename|
         next if ignores.any? { |r| filename =~ r }
 
         content = File.read(filename)
