@@ -11,7 +11,21 @@ gem install i18n_tools
 
 ## Usage
 
-Include the following snippet into your `Rakefile`:
+If you use bundler in Rails, add the following to your `Rakefile`:
+
+```ruby
+group :development do
+  gem 'i18n_tools'
+end
+```
+
+If you use bundler outside of Rails, use
+
+```ruby
+gem 'i18n_tools', :require => 'i18n_tools/tasks'
+```
+
+Finally, if you're not using bundler, then include the following snippet into your `Rakefile`:
 
 ```ruby
 begin
@@ -19,6 +33,8 @@ begin
 rescue LoadError
 end
 ```
+
+The begin and rescue block makes sure that your `Rakefile` won't report an error when the gem is not installed. This is because the gem is clearly only useful while developing.
 
 Now you can run the following tasks:
 
@@ -29,12 +45,18 @@ Now you can run the following tasks:
 
 ## Tweaking it
 
-By default, `i18n_tools` looks for controllers, helpers, models and views in the usual directories. If you
-use non-standard file types (such as `"app/mailers"` or something like that), add the following to your
+By default, `i18n_tools` looks for ruby code inside the `app/` directory as well as views inside `app/views/`.
+If you use non-standard locations (such as `"modules/"` or something like that), add the following to your
 Rakefile:
 
 ```ruby
-I18nTools::Scanner.file_types << "mailers"
+I18nTools::Scanner.code_paths << "modules"
+```
+
+For non-standard view paths, use
+
+```ruby
+I18nTools::Scanner.view_paths << "app/mailer_views/**/*.erb"
 ```
 
 Some files might contain parts that look like calls to the translation library, but actually aren't. To
@@ -43,19 +65,7 @@ expressions, one per line. Empty lines or lines starting with `#` are ignored.
 
 There is something special about the `translations:unused` task. In its default configuration it might
 report things that are actually used. To exclude these false positives, enter each key prefix to ignore
-into the file `.i18nignore_unused` (omit the locale). For example, a good start is to use the following
-key prefixes for your `.i18nignore_unused`:
-
-```
-activerecord
-# if you use authlogic
-authlogic
-date.formats
-datetime
-number
-support.array
-time
-```
+into the file `.i18nignore_unused` (omit the locale).
 
 ## Contributing
 
