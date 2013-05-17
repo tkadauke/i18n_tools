@@ -3,7 +3,12 @@ module I18nTools
     VIEW_REGEXPS = [/[^\w]t\(\"(.*?)\"(.*?)\)/, /[^\w]t\(\'(.*?)\'(.*?)\)/]
     CODE_REGEXPS = [/I18n\.t\(\"(.*?)\"(.*?)\)/, /I18n\.t\(\'(.*?)\'(.*?)\)/]
     
-    cattr_accessor :file_types
+    def self.file_types
+      @@file_types
+    end
+    def self.file_types=(val)
+      @@file_types = val
+    end
     self.file_types = ['controllers', 'helpers', 'models']
 
   protected

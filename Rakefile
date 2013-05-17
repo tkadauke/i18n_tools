@@ -1,5 +1,3 @@
-require 'gemmer'
-
-Gemmer::Tasks.new('i18n_tools') do |t|
-  t.release_via :rubygems
-end
+require "bundler/gem_tasks"
+Bundler.setup
+Bundler.require

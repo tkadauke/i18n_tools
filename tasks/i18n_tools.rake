@@ -4,8 +4,6 @@ namespace :translations do
       Rake::Task["environment"].invoke
     else
       require 'i18n'
-      require 'active_support'
-      $KCODE = "UTF8"
       
       I18n.load_path << Dir[File.join('locales', '*.yml')]
       I18n.load_path << Dir[File.join('config', 'locales', '*.yml')]
