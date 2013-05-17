@@ -50,7 +50,7 @@ If you use non-standard locations (such as `"modules/"` or something like that),
 Rakefile:
 
 ```ruby
-I18nTools::Scanner.code_paths << "modules"
+I18nTools::Scanner.code_paths << "modules/**/*.rb"
 ```
 
 For non-standard view paths, use
