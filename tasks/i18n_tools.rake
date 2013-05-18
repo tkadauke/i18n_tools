@@ -32,4 +32,18 @@ namespace :translations do
     unused = I18nTools::UnusedScanner.new(@locale).results
     puts unused
   end
+  
+  desc 'Merge in new translations'
+  task :merge do
+    require 'yaml'
+    require 'ya2yaml'
+    require 'deep_merge/rails_compat'
+    
+    Dir.glob("config/locales/*.yml").each do |file|
+      content = File.read(file)
+      parts = content.split("---").map { |part| YAML.load(part) }
+      result = parts.inject({}) { |result, hash| result.deeper_merge(hash) }
+      File.open(file, 'w') { |f| f.puts(result.ya2yaml) }
+    end
+  end
 end

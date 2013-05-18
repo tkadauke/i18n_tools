@@ -42,6 +42,10 @@ Now you can run the following tasks:
   and outputs them to stdout in YAML format.
 * `LOCALE=xyz rake translations:unused` -- detects translations in locale xyz that are not used by any of
   your code and outputs the translation keys.
+* `rake translations:merge` -- will merge new translations added to the bottom of the YAML file into the
+  rest of the file. Make sure the parts are separated by a line containing three dashes (`---`). The easiest
+  way to do this is by using `rake translations:missing` and copy the output into the YAML file before running
+  this task.
 
 ## Tweaking it
 

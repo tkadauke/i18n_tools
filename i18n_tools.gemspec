@@ -1,7 +1,7 @@
 Gem::Specification.new do |s| 
   s.platform  =   Gem::Platform::RUBY
   s.name      =   "i18n_tools"
-  s.version   =   "0.1.4"
+  s.version   =   "0.1.5"
   s.date      =   Date.today.strftime('%Y-%m-%d')
   s.author    =   "Thomas Kadauke"
   s.email     =   "thomas.kadauke@googlemail.com"
@@ -11,4 +11,5 @@ Gem::Specification.new do |s|
   s.require_path = "lib"
   
   s.add_dependency 'ya2yaml'
+  s.add_dependency 'deep_merge'
 end
