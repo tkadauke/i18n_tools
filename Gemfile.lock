@@ -1,12 +1,14 @@
 PATH
   remote: .
   specs:
-    i18n_tools (0.1.4)
+    i18n_tools (0.1.5)
+      deep_merge
       ya2yaml
 
 GEM
   remote: http://rubygems.org/
   specs:
+    deep_merge (1.0.0)
     ya2yaml (0.31)
 
 PLATFORMS
