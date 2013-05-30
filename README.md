@@ -11,7 +11,7 @@ gem install i18n_tools
 
 ## Usage
 
-If you use bundler in Rails, add the following to your `Rakefile`:
+If you use bundler in Rails, add the following to your `Gemfile`:
 
 ```ruby
 group :development do
