@@ -43,7 +43,7 @@ namespace :translations do
       content = File.read(file)
       parts = content.split("---").map { |part| YAML.load(part) }
       result = parts.inject({}) { |result, hash| result.deeper_merge(hash) }
-      File.open(file, 'w') { |f| f.puts(result.ya2yaml) }
+      File.open(file, 'w') { |f| f.puts(result.ya2yaml.gsub(/\s+$/, '')) }
     end
   end
 end
