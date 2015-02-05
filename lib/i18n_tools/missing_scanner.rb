@@ -17,7 +17,7 @@ module I18nTools
         current_hash = result
         parts = key.split(".")
         parts[0..-2].each do |part|
-          current_hash[part] ||= {}
+          current_hash[part] = {} unless current_hash[part].is_a?(Hash)
           current_hash = current_hash[part]
         end
         
